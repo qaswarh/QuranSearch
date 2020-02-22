@@ -1,7 +1,5 @@
 import openpyxl
-import pprint
 import re
-
 wb = openpyxl.load_workbook('QuranTM.xlsm')
 Quran_db = wb['QuranTM']
 row = Quran_db.max_row
@@ -9,17 +7,18 @@ column = 6
 dslist = []
 dslistfinal = []
 intlist = []
+
 for r in range(3, row + 1):
     for c in range(1, column + 1):
         ds = Quran_db.cell(r, c).value
         if ds is not None:
             found = ""
             m = re.search('Root(.*) ]', ds)
-        if m:
-            found = m.group(1)
-            ds = found
-            ds = re.sub(" *", "", ds)
-            dslist.append(ds)
+            if m:
+                found = m.group(1)
+                ds = found
+                ds = re.sub(" *", "", ds)
+                dslist.append(ds)
 for ds in dslist:
     if ds not in dslistfinal:
         dslistfinal.append(ds)
@@ -28,9 +27,9 @@ for i in range(1, 1672):
 dictdslistfinal = dict(zip(intlist, dslistfinal))
 print('Here is the list of roots for which Allah SWT chose words in Quran')
 print('--- is the entry for Prepositions, Conjunctions, Emphasis particles, etc. which have no roots\n')
-pprint.pprint(dictdslistfinal)
-# print(dictdslistfinal)
-print('\n')
+for keys in dictdslistfinal:
+    print(dictdslistfinal[keys], keys)
+
 dr = ""
 
 
@@ -45,7 +44,6 @@ def display():
                 found = m.group(1)
                 ds = found
                 ds = re.sub(" *", "", ds)
-                # if ds == dr:
                 if ds == dictdslistfinal[int(dr)]:
                     dw = Quran_db.cell(r - 1, c).value
                     dw1 = Quran_db.cell(r - 1, 1).value
@@ -56,7 +54,9 @@ def display():
                     dw6 = Quran_db.cell(r - 1, 6).value
                     ds1 = Quran_db.cell(r, c).value
                     ds1 = re.sub('\[.*\]', "", ds1)
-                    nrc = "?,-()._x000D_\""
+                    ds1 = re.sub('_x000D_', "", ds1)
+                    # ds1 = re.sub(None, "-", ds1)
+                    nrc = "?,-().\""
                     for char in nrc:
                         ds1 = ds1.replace(char, "")  # english phrase left
                     print('\n', dw, '\n', ds1, dw1, dw2, dw3, dw4, dw5, dw6)
