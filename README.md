@@ -8,4 +8,4 @@ The script also extract and display the ows (in Arabic) from the said file where
 
 Here is search example:
 
-
+![image](https://user-images.githubusercontent.com/47313728/75089251-ca953a00-550b-11ea-8cc7-19ac1cbd71a6.png)
