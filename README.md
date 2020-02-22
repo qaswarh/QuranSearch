@@ -6,4 +6,6 @@ The script looks for all the roots in Quran from the said file, 1671 found, and 
 
 The script also extract and display the ows (in Arabic) from the said file where the words found
 
+Here is search example:
+
 
